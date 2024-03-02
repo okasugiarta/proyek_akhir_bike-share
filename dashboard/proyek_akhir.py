@@ -67,16 +67,6 @@ def create_season_rent_df(df):
     return season_rent_df
 
 
-with st.sidebar:
-      # Mengambil start_date & end_date dari date_input
-    start_date, end_date = st.date_input(
-        label='Periode Waktu',
-        min_value= min_date,
-        max_value= max_date,
-        value=[min_date, max_date]
-    )
-    main_df = day_df[(day_df['dateday'] >= str(start_date)) & 
-                (day_df['dateday'] <= str(end_date))]
     
 # Menyiapkan berbagai dataframe
 monthly_rent_df = create_monthly_rent_df(main_df)
