@@ -69,8 +69,8 @@ def create_season_rent_df(df):
 
     
 # Menyiapkan berbagai dataframe
-monthly_rent_df = create_monthly_rent_df(main_df)
-season_rent_df = create_season_rent_df(main_df)
+monthly_rent_df = create_monthly_rent_df(day_df)
+season_rent_df = create_season_rent_df(day_df)
 
 # Membuat Dashboard secara lengkap
 
