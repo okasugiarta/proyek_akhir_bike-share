@@ -10,6 +10,10 @@ sns.set(style='dark')
 day_df = pd.read_csv("dashboard/day.csv")
 day_df.head()
 
+# Menghapus kolom yang tidak diperlukan
+day_df = day_df.drop("instant", axis=1)
+day_df.head()
+
 # Mengubah tipe data pada beberapa kolom
 day_df['dteday'] = pd.to_datetime(day_df['dteday'])
 day_df['season'] = day_df.season.astype('category')
@@ -18,18 +22,6 @@ day_df['holiday'] = day_df.holiday.astype('category')
 day_df['weekday'] = day_df.weekday.astype('category')
 day_df['workingday'] = day_df.workingday.astype('category')
 day_df['weathersit'] = day_df.weathersit.astype('category')
-
-# Mengubah angka menjadi keterangan
-day_df.season.replace((1,2,3,4), ('Winter','Spring','Summer','Fall'), inplace=True)
-day_df.yr.replace((0,1), (2011,2012), inplace=True)
-day_df.mnth.replace((1,2,3,4,5,6,7,8,9,10,11,12),('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'), inplace=True)
-day_df.weathersit.replace((1,2,3,4), ('Clear','Misty','Light_RainSnow','Heavy_RainSnow'), inplace=True)
-day_df.weekday.replace((0,1,2,3,4,5,6), ('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'), inplace=True)
-day_df.workingday.replace((0,1), ('No', 'Yes'), inplace=True)
-
-# Menghapus kolom yang tidak diperlukan
-day_df = day_df.drop("instant", axis=1)
-day_df.head()
 
 # Merubah nama kolom
 
@@ -41,6 +33,28 @@ day_df.rename(columns={
     "hum" : "humidity",
     "cnt" : "total_count"}, inplace=True
 )
+
+# Mengubah angka menjadi keterangan
+day_df['month'] = day_df['month'].map({
+    1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
+    7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'
+})
+day_df['season'] = day_df['season'].map({
+    1: 'Spring', 2: 'Summer', 3: 'Fall', 4: 'Winter'
+})
+day_df['weekday'] = day_df['weekday'].map({
+    0: 'Sun', 1: 'Mon', 2: 'Tue', 3: 'Wed', 4: 'Thu', 5: 'Fri', 6: 'Sat'
+})
+day_df['weather'] = day_df['weather'].map({
+    1: 'Clear/Partly Cloudy',
+    2: 'Misty/Cloudy',
+    3: 'Light Snow/Rain',
+    4: 'Severe Weather'
+})
+
+
+
+
 
 # Merubah nilai dari 'temp', 'atemp', 'humidity, 'windspeed' ke dalam nilai yang belum dinormalisasi
 
